@@ -1,19 +1,23 @@
 {
-  "name": "movie-api",
+  "name": "build-a-family-movie-watchlist-api",
   "version": "1.0.0",
-  "description": "Family movie watchlist API",
+  "description": "Family Movie Watchlist API",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file .env index.js"
+    "dev": "node --env-file .env index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "BSD-3-Clause",
-  "type": "module",
+  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "3.0.3",
-    "jsonwebtoken": "9.0.3",
-    "express": "5.2.1",
-    "helmet": "8.2.0"
+    "bcryptjs": "^3.0.3",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@usebruno/cli": "^4.4.0"
   }
 }
