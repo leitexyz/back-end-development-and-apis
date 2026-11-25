@@ -6,7 +6,7 @@ export function authenticate(req, res, next) {
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({
-      message: "Authentication required"
+      error: "No token provided."
     });
   }
 
@@ -19,10 +19,11 @@ export function authenticate(req, res, next) {
     );
 
     req.user = decoded;
-    next();
-  } catch {
+    return next();
+
+  } catch (error) {
     return res.status(401).json({
-      message: "Invalid or expired token"
+      error: "Invalid or expired token."
     });
   }
 }

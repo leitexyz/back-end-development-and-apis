@@ -23,7 +23,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// Rota inicial
+// ROTA INICIAL
 app.get("/", (req, res) => {
   res.json({
     message: "Family Movie Watchlist API"
@@ -71,17 +71,17 @@ app.post("/api/auth/login", async (req, res) => {
     }
   );
 
-  return res.json({
+  return res.status(200).json({
     message: "Login successful",
     token
   });
 });
 
 // GET WATCHLIST
+// Qualquer usuário autenticado pode consultar.
 app.get(
-  "/api/users/:userId/watchlist",
+  "/api/watchlist/:userId",
   authenticate,
-  authorizeModification,
   (req, res) => {
     const userId = Number(req.params.userId);
 
@@ -95,7 +95,7 @@ app.get(
 
     const watchlist = getWatchlist(userId);
 
-    return res.json({
+    return res.status(200).json({
       userId,
       watchlist
     });
@@ -104,7 +104,7 @@ app.get(
 
 // ADD MOVIE
 app.post(
-  "/api/users/:userId/watchlist",
+  "/api/watchlist/:userId/movies",
   authenticate,
   authorizeModification,
   (req, res) => {
@@ -144,7 +144,7 @@ app.post(
 
 // UPDATE MOVIE
 app.put(
-  "/api/users/:userId/watchlist/:movieId",
+  "/api/watchlist/:userId/movies/:movieId",
   authenticate,
   authorizeModification,
   (req, res) => {
@@ -216,7 +216,7 @@ app.put(
       });
     }
 
-    return res.json({
+    return res.status(200).json({
       message: "Movie updated successfully",
       movie
     });
@@ -225,7 +225,7 @@ app.put(
 
 // DELETE MOVIE
 app.delete(
-  "/api/users/:userId/watchlist/:movieId",
+  "/api/watchlist/:userId/movies/:movieId",
   authenticate,
   authorizeModification,
   (req, res) => {
@@ -254,13 +254,13 @@ app.delete(
       });
     }
 
-    return res.json({
+    return res.status(200).json({
       message: "Movie deleted successfully"
     });
   }
 );
 
-// Start server
+// START SERVER
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
